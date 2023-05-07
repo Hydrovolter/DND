@@ -86,7 +86,7 @@ Python
 <!-- GETTING STARTED -->
 ## Getting Started
 
-Packages: time, random, sys
+Packages: time, random
 
 ### Prerequisites
 

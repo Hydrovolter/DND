@@ -5,7 +5,6 @@
 
 import random
 import time
-import sys
 
 print("Made by Hydrovolter#8432\n\n")
 
@@ -743,9 +742,6 @@ def playDiceLuck():
     canPlayLuckyDice = False
     return breakOption()
 
-
-
-
 # Break Option Event
 
 def breakOption():
@@ -777,7 +773,7 @@ def breakOption():
     elif choice == 4:
         print("Alright, then this concludes your adventure! Thank you for playing Hydrovolter's Dungeons and Dragons Game! ")
         time.sleep(3)
-        sys.exit()
+        exit()
     else:
         print("Invalid choice! Please choose again.")
         return breakOption()
@@ -818,7 +814,7 @@ def firstEvent(player_name, enemy_name, rating, xp_gain):
                     # print(f"The Fight is Over! {player_name} loses.")
                     print("Unfortunately, you have been defeated, which concludes your adventure. Thanks for playing!")
                     time.sleep(3)
-                    sys.exit()
+                    exit()
                     # break
 
         elif option == "defend":
@@ -829,7 +825,7 @@ def firstEvent(player_name, enemy_name, rating, xp_gain):
                     # print(f"The Fight is Over! {player_name} loses.")
                     print("Unfortunately, you have been defeated, which concludes your adventure. Thanks for playing!")
                     time.sleep(3)
-                    sys.exit()
+                    exit()
                     # break
         elif option == "heal":
             player_actions.heal()
@@ -864,11 +860,6 @@ def startGame(player_name):
     canPlayLuckyDice = True
 
     breakOption()
-
-
-
-    
-
 
 # Start Game
 
