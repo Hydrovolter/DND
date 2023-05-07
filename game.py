@@ -649,6 +649,8 @@ def startGame(player_name):
 
     firstEvent(player_name, "FLUMPH", "1", random.randint(200, 400))
 
+    checkLevel()
+
 
 
     

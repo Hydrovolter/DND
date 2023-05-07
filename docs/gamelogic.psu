@@ -1,0 +1,24 @@
+Ask Name
+
+Start Game
+
+Creates Character:
+    Asks for abilities to assign score values 15, 14, 13, 12, 10, and 8 (as in DND)
+    Asks for race (updates abilities accordingly)
+    Asks for class (updates abilities accordingly)
+
+Creates Setting:
+    4 Descriptions, selected through dice roll
+
+First Event:
+    Fight "FLUMPH" (monster)
+
+Break:
+    (For the first time, break options: continue, lucky dice game, end game)
+
+Check Level (After Each Event)
+
+Second Event:
+
+
+
