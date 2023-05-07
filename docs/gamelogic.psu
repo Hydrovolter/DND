@@ -14,7 +14,14 @@ First Event:
     Fight "FLUMPH" (monster)
 
 Break:
-    (For the first time, break options: continue, lucky dice game, end game)
+    (For the first time, break options: continue, lucky dice game, show stats, end game)
+
+    Lucky Dice Game:
+        Uses d6, d20, and d100
+        3 rounds
+        roll >= 50 to win
+        win = grants +1 of an ability score you choose
+        lose= -1 of a random ability score
 
 Check Level (After Each Event)
 

@@ -31,6 +31,8 @@ lastLevel = 0
 # xp = add_xp(xp, 1000)
 # print("Player is now level", get_level(xp)) # Output: Player is now level 3
 
+canPlayLuckyDice = True
+
 
 
 # Dice Rolls
@@ -517,7 +519,22 @@ def checkLevel():
         time.sleep(1)
     lastLevel = get_level(xp)
 
-# Dice Luck Game TODO
+# Display Stats
+
+def displayStats(character_name):
+    global STR, DEX, CON, WIS, INT, CHA, race, Class, xp, lastLevel
+    print("\nUpdated Ability Stats:\n")
+    print(f"Name: {character_name}")
+    print("Strength: " + str(STR))
+    print("Dexterity: " + str(DEX))
+    print("Constitution: " + str(CON))
+    print("Wisdom: " + str(WIS))
+    print("Intelligence: " + str(INT))
+    print("Charisma: " + str(CHA))
+    print(f"Race: {race.capitalize()}")
+    print(f"Class: {Class.capitalize()}")
+
+# Dice Luck Game
 
 def diceLuck():
     options = ["Play the Lucky Dice game", "Exit the Lucky Dice Game"]
@@ -542,18 +559,203 @@ def diceLuck():
         return diceLuck()
     
 def playDiceLuck():
-    global STR, DEX, CON, WIS, INT, CHA, race, Class, xp, lastLevel
+    global STR, DEX, CON, WIS, INT, CHA, race, Class, xp, lastLevel, canPlayLuckyDice
+    abilities = ["STR", "DEX", "CON", "WIS", "INT", "CHA"]
+
+    # Round 1
+
+    r1 = d6()
+    print("Round 1: You roll a...")
+    time.sleep(1)
+    print(f"{str(r1)}!")
+    if r1 >= 3:
+        print("Congratulations! You won!")
+        
+        ability = None
+        while ability not in abilities:
+            ability = input("Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
+            abilityupped = ability.upper()
+            if abilityupped in abilities:
+                if abilityupped == "STR":
+                    STR += 1
+                elif abilityupped == "DEX":
+                    DEX += 1
+                elif abilityupped == "CON":
+                    CON += 1
+                elif abilityupped == "WIS":
+                    WIS += 1
+                elif abilityupped == "INT":
+                    INT += 1
+                elif abilityupped == "CHA":
+                    CHA += 1
+                break
+            else:
+                print("Please enter a valid ability")
+    else:
+        notZero = True
+        while notZero == True:
+            abilitydeducted = random.choice(abilities)
+            if abilitydeducted == "STR":
+                if STR != 0:
+                    STR -= 1
+                    notZero = False
+            elif abilitydeducted == "DEX":
+                if DEX != 0:
+                    DEX -= 1
+                    notZero = False
+            elif abilitydeducted == "CON":
+                if CON != 0:
+                    CON -= 1
+                    notZero = False
+            elif abilitydeducted == "WIS":
+                if WIS != 0:
+                    WIS -= 1
+                    notZero = False
+            elif abilitydeducted == "INT":
+                if INT != 0:
+                    INT -= 1
+                    notZero = False
+            elif abilitydeducted == "CHA":
+                if CHA != 0:
+                    CHA -= 1
+                    notZero = False
+            print(f"Unfortunately, you lost. -1 will be deducted from a random ability. The ability chosen is: {abilitydeducted}")
+
+        # Round 2
+
+    r2 = d20()
+    print("Round 2: You roll a...")
+    time.sleep(1)
+    print(f"{str(r2)}!")
+    if r2 >= 10:
+        print("Congratulations! You won!")
+        
+        ability = None
+        while ability not in abilities:
+            ability = input("Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
+            abilityupped = ability.upper()
+            if abilityupped in abilities:
+                if abilityupped == "STR":
+                    STR += 1
+                elif abilityupped == "DEX":
+                    DEX += 1
+                elif abilityupped == "CON":
+                    CON += 1
+                elif abilityupped == "WIS":
+                    WIS += 1
+                elif abilityupped == "INT":
+                    INT += 1
+                elif abilityupped == "CHA":
+                    CHA += 1
+                break
+            else:
+                print("Please enter a valid ability")
+    else:
+        notZero = True
+        while notZero == True:
+            abilitydeducted = random.choice(abilities)
+            if abilitydeducted == "STR":
+                if STR != 0:
+                    STR -= 1
+                    notZero = False
+            elif abilitydeducted == "DEX":
+                if DEX != 0:
+                    DEX -= 1
+                    notZero = False
+            elif abilitydeducted == "CON":
+                if CON != 0:
+                    CON -= 1
+                    notZero = False
+            elif abilitydeducted == "WIS":
+                if WIS != 0:
+                    WIS -= 1
+                    notZero = False
+            elif abilitydeducted == "INT":
+                if INT != 0:
+                    INT -= 1
+                    notZero = False
+            elif abilitydeducted == "CHA":
+                if CHA != 0:
+                    CHA -= 1
+                    notZero = False
+            print(f"Unfortunately, you lost. -1 will be deducted from a random ability. The ability chosen is: {abilitydeducted}")
+
+    # Round 3
+
+    r3 = d100()
+    print("Round 3 (Final Round): You roll a...")
+    time.sleep(1)
+    print(f"{str(r3)}!")
+    if r3 >= 50:
+        print("Congratulations! You won!")
+        
+        ability = None
+        while ability not in abilities:
+            ability = input("Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
+            abilityupped = ability.upper()
+            if abilityupped in abilities:
+                if abilityupped == "STR":
+                    STR += 1
+                elif abilityupped == "DEX":
+                    DEX += 1
+                elif abilityupped == "CON":
+                    CON += 1
+                elif abilityupped == "WIS":
+                    WIS += 1
+                elif abilityupped == "INT":
+                    INT += 1
+                elif abilityupped == "CHA":
+                    CHA += 1
+                break
+            else:
+                print("Please enter a valid ability")
+    else:
+        notZero = True
+        while notZero == True:
+            abilitydeducted = random.choice(abilities)
+            if abilitydeducted == "STR":
+                if STR != 0:
+                    STR -= 1
+                    notZero = False
+            elif abilitydeducted == "DEX":
+                if DEX != 0:
+                    DEX -= 1
+                    notZero = False
+            elif abilitydeducted == "CON":
+                if CON != 0:
+                    CON -= 1
+                    notZero = False
+            elif abilitydeducted == "WIS":
+                if WIS != 0:
+                    WIS -= 1
+                    notZero = False
+            elif abilitydeducted == "INT":
+                if INT != 0:
+                    INT -= 1
+                    notZero = False
+            elif abilitydeducted == "CHA":
+                if CHA != 0:
+                    CHA -= 1
+                    notZero = False
+            print(f"Unfortunately, you lost. -1 will be deducted from a random ability. The ability chosen is: {abilitydeducted}")
+    print("\nThank you for playing the Lucky Dice Game!")
+    displayStats()
+    canPlayLuckyDice = False
+    return breakOption()
+
+
 
 
 # Break Option Event
 
 def breakOption():
-    options = ["Continue with your adventure", "Try your dice luck", "End Game"]
-    print("\nEvent Cleared! Would you like to:")
+    global playerName, canPlayLuckyDice
+    options = ["Continue with your adventure", "Try your dice luck", "Show Stats", "End Game"]
+    print("\nBreak! Would you like to:")
     for i, option in enumerate(options):
         print(f"{i+1}. {option}")
     try:
-        choice = int(input("Enter your choice (1-3): "))
+        choice = int(input("Enter your choice (1-4): "))
     except: 
         print("Invalid choice! Please choose again.")
         return breakOption()
@@ -561,10 +763,18 @@ def breakOption():
         print("Okay, let's carry on with your adventure!")
         time.sleep(1)
     elif choice == 2:
-        print("Okay, let's try your luck with dice!")
-        print("\n\nWelcome to the Lucky Dice Game!\n\nIn this game, there will be 3 rounds to play. In each round, you will roll a dice, and if it lands above or on the half of the dices value, +1 will be added to a random ability of yours! However, if the roll is less than half of the dice's value, -1 will be taken from a random ability of yours! High risk, high reward! You have the option to quit now if you would like, but once the game has started, there is no going back!")
-        diceLuck()
+        if canPlayLuckyDice == True:
+            print("Okay, let's try your luck with dice!")
+            print("\n\nWelcome to the Lucky Dice Game!\n\nIn this game, there will be 3 rounds to play, with 3 different die (d6, d20 and d100). In each round, you will roll a dice, and if it lands above or on the half of the dices value, +1 will be added to a random ability of yours! However, if the roll is less than half of the dice's value, -1 will be taken from a random ability of yours! High risk, high reward! You have the option to quit now if you would like, but once the game has started, there is no going back!")
+            diceLuck()
+        else:
+            print("Sorry, you cannot play Lucky Dice again this break, try again next break!")
+            return breakOption()
     elif choice == 3:
+        displayStats(playerName)
+        time.sleep(3)
+        return breakOption()
+    elif choice == 4:
         print("Alright, then this concludes your adventure! Thank you for playing Hydrovolter's Dungeons and Dragons Game! ")
         time.sleep(3)
         sys.exit()
@@ -638,6 +848,7 @@ def secondEvent(player_name, xp_gain):
 # Create Start Game Function
 
 def startGame(player_name):
+    global canPlayLuckyDice
     print(f"\nHello {playerName}, welcome to Hydrovolter's Dungeons and Dragons Python Game! Before we get started, you will need to create your character! Please proceed with the following: (5 Seconds)\n")
     time.sleep(5)
 
@@ -650,6 +861,9 @@ def startGame(player_name):
     firstEvent(player_name, "FLUMPH", "1", random.randint(200, 400))
 
     checkLevel()
+    canPlayLuckyDice = True
+
+    breakOption()
 
 
 
