@@ -496,6 +496,7 @@ def createSetting():
         print("Nestled deep in the heart of a wet, swampy green forest stands a magnificent tree house, a verdant oasis rising above the damp ground. The forest canopy envelops the tree house in a cloak of green, while vines and leaves drape themselves over the wooden beams, as if nature itself has woven a protective veil around it. The tree house appears to have grown organically out of the tree, with its wooden planks twisting and turning to match the shape of the trunk. A rickety wooden ladder leads up to the small, but cozy interior, where the smell of fresh wood mingles with the earthy scent of the surrounding forest. From the windows, one can catch glimpses of the misty, swampy landscape stretching out as far as the eye can see, while the gentle creaking of the tree house lends a soothing rhythm to the tranquil sounds of the forest.")
     elif settingRoll == 4:
         print("Amidst the chaotic buzz of an urban jungle, the skyscraper stands tall and proud, a modern marvel of architectural engineering. Its smooth glass and steel facade reflects the hustle and bustle of the city below, with streams of cars and people flowing like rivers around its base. As one gazes upwards, the tower seems to reach endlessly into the sky, disappearing into the clouds above. From within, the views are breathtaking, as the cityscape spreads out in all directions, a sprawling metropolis of concrete and steel. The constant hum of traffic and the distant sounds of honking horns permeate the air, serving as a constant reminder of the frenetic energy of the city that never sleeps.")
+    time.sleep(5)
 
 # Check Level
 
@@ -831,14 +832,73 @@ def firstEvent(player_name, enemy_name, rating, xp_gain):
             player_actions.heal()
             time.sleep(1)
 
-# Second Event TODO
+# Second Event
 
 def secondEvent(player_name, xp_gain):
-    choice = input(f"\n\nAfter fighting an intense battle, you have a choice:\n[1] take a rest\n[2] scavenge nearby\n")
+    global STR, DEX, CON, WIS, INT, CHA, race, Class, xp
+    options = ["Take a Rest", "Scavenge Nearby"]
+    itemsWizard = ["spellbook", "potion", "wand", "broomstick", "pot", "ingredients", "spellcaster", "cauldron"]
+    itemsFighter = ["axe", "glaive", "longsword", "maul", "whip", "trident", "bow", "warhammer"]
+    itemsMonk = ["spear", "shortsword", "club", "dagger", "handaxe", "javelin", "mace", "sickle"]
+    print("\nWould you like to:")
+    for i, option in enumerate(options):
+        print(f"{i+1}. {option}")
+    try:
+        choice = int(input("Enter your choice (1, or 2): "))
+    except: 
+        print("Invalid choice! Please choose again.")
+        return diceLuck()
+    if choice == 1:
+        print("You lay down for a bit, until your eyes slowly close. +2 CHA")
+        CHA += 2
+        time.sleep(1)
+    elif choice == 2:
+        if Class == "fighter": item = random.choice(itemsFighter)
+        if Class == "wizard": item = random.choice(itemsWizard)
+        if Class == "monk": item = random.choice(itemsMonk)
+        
+        print(f"You go scavenging, and find a {item}.")
+        if item in itemsFighter:
+            print("As you are in the fighter class, this grants you +1 DEX")
+            DEX += 1
+        elif item in itemsWizard:
+            print("As you are in the wizard class, this grants you +1 STR")
+            STR += 1
+        elif item in itemsMonk:
+            print("As you are in the monk class, this grants you +1 INT")
+            INT += 1
+    else:
+        print("Invalid choice! Please choose again.")
+        return secondEvent()
+    time.sleep(2)
+    print("\nOn a nearby wall, an inscription is marked. Do you see it, or not? Roll 10 or above on the D20 to discover it. You roll...")
+    roll = d20()
+    time.sleep(1)
+    print(f"A {str(roll)}!\n")
+    if roll >= 10:
+        print("You spot the inscription and walk over to investigate further")
+        if INT > 12:
+            print("As your intelligence is above 12, you look closely and discover that there is a treasure map indicating some treasure beneath your feet!")
+            if WIS > 10:
+                print(f"As your wisdom is above 10, you realise there is a shovel nearby to dig up the ground, and you uncover the treasure! +1 to all ability stats! You are also rewarded with {str(xp_gain)} XP!")
+                STR += 1
+                DEX += 1
+                CON += 1
+                WIS += 1
+                INT += 1
+                CHA += 1
+                add_xp(xp, xp_gain)
+            else:
+                print("However, as your wisdom is less than 10, you don't spot anything to dig up with, and give up.")
+        else:
+            print("As your intelligence is below 12, you are not able to decode the inscription")
+    else:
+        print("You don't see the inscription, and just continue walking.")
+
+# Third Event TODO
+
+def thirdEvent():
     pass
-
-
-
 
 
 # Create Start Game Function
@@ -847,19 +907,26 @@ def startGame(player_name):
     global canPlayLuckyDice
     print(f"\nHello {playerName}, welcome to Hydrovolter's Dungeons and Dragons Python Game! Before we get started, you will need to create your character! Please proceed with the following: (5 Seconds)\n")
     time.sleep(5)
-
+    # Setting + First Event
     createCharacter(player_name)
-
     createSetting()
-
-    time.sleep(5)
-
     firstEvent(player_name, "FLUMPH", "1", random.randint(200, 400))
-
+    # Break
     checkLevel()
     canPlayLuckyDice = True
-
     breakOption()
+    # Second Event
+    print(f"\n\nAfter fighting an intense battle, you find a post and lie against it.")
+    secondEvent(playerName, random.randint(400, 800))
+    # Break 2
+    checkLevel()
+    canPlayLuckyDice = True
+    breakOption()
+    # Third Event
+    # thirdEvent()
+
+
+
 
 # Start Game
 
