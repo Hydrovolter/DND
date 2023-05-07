@@ -1,9 +1,9 @@
-XP System Usage:
+# XP System Usage:
 
 # xp = add_xp(xp, 1000)
 # print("Player is now level", get_level(xp)) # Output: Player is now level 3
 
-ActionPanel System Usage:
+# ActionPanel System Usage:
 
 # self, name, hp, damage, armor
 # player = Character("Player", 50, 10, 5)
