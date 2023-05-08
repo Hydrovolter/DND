@@ -172,9 +172,6 @@ Use this space to list resources you find helpful and would like to give credit 
 * [Img Shields](https://shields.io/)
 * [React Icons](https://react-icons.github.io/react-icons/search/)
 * [DND Beyond](https://www.dndbeyond.com/)
-* [Stackoverflow](https://stackoverflow.com/)
-* [Google](https://google.com/)
-* My Friends
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
