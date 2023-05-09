@@ -435,7 +435,8 @@ disable=raw-checker-failed,
         line-too-long,
         multiple-statements,
         bare-except,
-        global-statement
+        global-statement,
+        missing-module-docstring
         
 
 

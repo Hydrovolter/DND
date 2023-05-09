@@ -72,11 +72,9 @@ def add_xp(player_xp, xp_to_add):
 def get_level(player_xp):
     # DND XP System
     xp_thresholds = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000]
-    
     for i in range(len(xp_thresholds)):
         if player_xp < xp_thresholds[i]:
             return i-1
-    
     return 20
 
 # Action Panel System
@@ -102,7 +100,7 @@ class ActionPanel:
             if target.hp <= 0:
                 print(f"\n{target.name} has been defeated!")
                 return "defeat"
-    
+
     def defend(self):
         if self.character.armor <= 5: self.character.armor += 1
 
@@ -196,22 +194,22 @@ def createCharacter(character_name):
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "CON":
-                if CON == 0: 
+                if CON == 0:
                     CON = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "WIS":
-                if WIS == 0: 
+                if WIS == 0:
                     WIS = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "INT":
-                if INT == 0: 
+                if INT == 0:
                     INT = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "CHA":
-                if CHA == 0: 
+                if CHA == 0:
                     CHA = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
@@ -236,22 +234,22 @@ def createCharacter(character_name):
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "CON":
-                if CON == 0: 
+                if CON == 0:
                     CON = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "WIS":
-                if WIS == 0: 
+                if WIS == 0:
                     WIS = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "INT":
-                if INT == 0: 
+                if INT == 0:
                     INT = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "CHA":
-                if CHA == 0: 
+                if CHA == 0:
                     CHA = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
@@ -276,22 +274,22 @@ def createCharacter(character_name):
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "CON":
-                if CON == 0: 
+                if CON == 0:
                     CON = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "WIS":
-                if WIS == 0: 
+                if WIS == 0:
                     WIS = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "INT":
-                if INT == 0: 
+                if INT == 0:
                     INT = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "CHA":
-                if CHA == 0: 
+                if CHA == 0:
                     CHA = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
@@ -317,22 +315,22 @@ def createCharacter(character_name):
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "CON":
-                if CON == 0: 
+                if CON == 0:
                     CON = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "WIS":
-                if WIS == 0: 
+                if WIS == 0:
                     WIS = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "INT":
-                if INT == 0: 
+                if INT == 0:
                     INT = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "CHA":
-                if CHA == 0: 
+                if CHA == 0:
                     CHA = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
@@ -357,22 +355,22 @@ def createCharacter(character_name):
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "CON":
-                if CON == 0: 
+                if CON == 0:
                     CON = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "WIS":
-                if WIS == 0: 
+                if WIS == 0:
                     WIS = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "INT":
-                if INT == 0: 
+                if INT == 0:
                     INT = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
             elif abilityupped == "CHA":
-                if CHA == 0: 
+                if CHA == 0:
                     CHA = num
                     break
                 else: print("You cannot choose an ability you have already chosen!")
@@ -388,7 +386,6 @@ def createCharacter(character_name):
     print("Wisdom: " + str(WIS))
     print("Intelligence: " + str(INT))
     print("Charisma: " + str(CHA))
-        
 
 
     # Race
@@ -420,7 +417,7 @@ def createCharacter(character_name):
             break
         else:
             print("Please enter a valid race")
-            
+
     print("\nUpdated Ability Stats:\n")
     print(f"Name: {character_name}")
     print("Strength: " + str(STR))
@@ -468,7 +465,7 @@ def createCharacter(character_name):
             break
         else:
             print("Please enter a valid race")
-    
+
     print("\nUpdated Ability Stats:\n")
     print(f"Name: {character_name}")
     print("Strength: " + str(STR))
@@ -501,7 +498,7 @@ def createSetting():
 # Check Level
 
 def checkLevel():
-    global STR, DEX, CON, WIS, INT, CHA, race, Class, xp, lastLevel
+    global STR, DEX, INT, lastLevel
 
     # lastLevel = get_level(xp)
     if get_level(xp) > lastLevel:
@@ -515,14 +512,13 @@ def checkLevel():
             INT += 1
         elif Class == "monk":
             print("As you are in the monk class, you gain +1 DEX")
-            DEX += 1  
+            DEX += 1
         time.sleep(1)
     lastLevel = get_level(xp)
 
 # Display Stats
 
 def displayStats(character_name):
-    global STR, DEX, CON, WIS, INT, CHA, race, Class, xp, lastLevel, playerName
     print("\nUpdated Ability Stats:\n")
     print(f"Name: {character_name}")
     print("Strength: " + str(STR))
@@ -543,7 +539,7 @@ def diceLuck():
         print(f"{i+1}. {option}")
     try:
         choice = int(input("Enter your choice (1, or 2): "))
-    except: 
+    except:
         print("Invalid choice! Please choose again.")
         return diceLuck()
     if choice == 1:
@@ -557,9 +553,9 @@ def diceLuck():
     else:
         print("Invalid choice! Please choose again.")
         return diceLuck()
-    
+
 def playDiceLuck():
-    global STR, DEX, CON, WIS, INT, CHA, race, Class, xp, lastLevel, canPlayLuckyDice
+    global STR, DEX, CON, WIS, INT, CHA, canPlayLuckyDice
     abilities = ["STR", "DEX", "CON", "WIS", "INT", "CHA"]
 
     # Round 1
@@ -570,7 +566,7 @@ def playDiceLuck():
     print(f"{str(r1)}!")
     if r1 >= 3:
         print("Congratulations! You won!")
-        
+
         ability = None
         while ability not in abilities:
             ability = input("Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
@@ -629,7 +625,7 @@ def playDiceLuck():
     print(f"{str(r2)}!")
     if r2 >= 10:
         print("Congratulations! You won!")
-        
+
         ability = None
         while ability not in abilities:
             ability = input("Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
@@ -688,7 +684,7 @@ def playDiceLuck():
     print(f"{str(r3)}!")
     if r3 >= 50:
         print("Congratulations! You won!")
-        
+
         ability = None
         while ability not in abilities:
             ability = input("Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
@@ -746,14 +742,13 @@ def playDiceLuck():
 # Break Option Event
 
 def breakOption():
-    global playerName, canPlayLuckyDice
     options = ["Continue with your adventure", "Try your dice luck", "Show Stats", "End Game"]
     print("\nBreak! Would you like to:")
     for i, option in enumerate(options):
         print(f"{i+1}. {option}")
     try:
         choice = int(input("Enter your choice (1-4): "))
-    except: 
+    except:
         print("Invalid choice! Please choose again.")
         return breakOption()
     if choice == 1:
@@ -782,7 +777,6 @@ def breakOption():
 # First Event
 
 def firstEvent(player_name, enemy_name, rating, xp_gain):
-    global STR, DEX, CON, WIS, INT, CHA, race, Class, xp
     print(f"\n\nWhile walking around, you encounter a {enemy_name}. It backs you into a corner. There is nowhere to run, you must fight the {enemy_name}. (Challenge Rating: {rating}/8) FIGHT STARTED:")
     time.sleep(3)
     player = Character(player_name, CON, STR, 3)
@@ -790,7 +784,7 @@ def firstEvent(player_name, enemy_name, rating, xp_gain):
 
     player_actions = ActionPanel(player)
     enemy_actions = ActionPanel(enemy)
-    battleLive = True 
+    battleLive = True
     while battleLive is True:
         time.sleep(1)
         option = battle_choice()
@@ -835,7 +829,7 @@ def firstEvent(player_name, enemy_name, rating, xp_gain):
 # Second Event
 
 def secondEvent(xp_gain):
-    global STR, DEX, CON, WIS, INT, CHA, race, Class, xp
+    global STR, DEX, CON, WIS, INT, CHA
     options = ["Take a Rest", "Scavenge Nearby"]
     itemsWizard = ["spellbook", "potion", "wand", "broomstick", "pot", "ingredients", "spellcaster", "cauldron"]
     itemsFighter = ["axe", "glaive", "longsword", "maul", "whip", "trident", "bow", "warhammer"]
@@ -845,7 +839,7 @@ def secondEvent(xp_gain):
         print(f"{i+1}. {option}")
     try:
         choice = int(input("Enter your choice (1, or 2): "))
-    except: 
+    except:
         print("Invalid choice! Please choose again.")
         return diceLuck()
     if choice == 1:
@@ -856,7 +850,7 @@ def secondEvent(xp_gain):
         if Class == "fighter": item = random.choice(itemsFighter)
         if Class == "wizard": item = random.choice(itemsWizard)
         if Class == "monk": item = random.choice(itemsMonk)
-        
+
         print(f"You go scavenging, and find a {item}.")
         if item in itemsFighter:
             print("As you are in the fighter class, this grants you +1 DEX")
@@ -916,7 +910,7 @@ def startGame(player_name):
     canPlayLuckyDice = True
     breakOption()
     # Second Event
-    print(f"\n\nAfter fighting an intense battle, you find a post and lie against it.")
+    print("\n\nAfter fighting an intense battle, you find a post and lie against it.")
     secondEvent(random.randint(400, 800))
     # Break 2
     checkLevel()
