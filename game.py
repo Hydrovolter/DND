@@ -834,7 +834,7 @@ def firstEvent(player_name, enemy_name, rating, xp_gain):
 
 # Second Event
 
-def secondEvent(player_name, xp_gain):
+def secondEvent(xp_gain):
     global STR, DEX, CON, WIS, INT, CHA, race, Class, xp
     options = ["Take a Rest", "Scavenge Nearby"]
     itemsWizard = ["spellbook", "potion", "wand", "broomstick", "pot", "ingredients", "spellcaster", "cauldron"]
@@ -869,7 +869,7 @@ def secondEvent(player_name, xp_gain):
             INT += 1
     else:
         print("Invalid choice! Please choose again.")
-        return secondEvent()
+        return secondEvent(random.randint(400, 800))
     time.sleep(2)
     print("\nOn a nearby wall, an inscription is marked. Do you see it, or not? Roll 10 or above on the D20 to discover it. You roll...")
     roll = d20()
@@ -917,7 +917,7 @@ def startGame(player_name):
     breakOption()
     # Second Event
     print(f"\n\nAfter fighting an intense battle, you find a post and lie against it.")
-    secondEvent(playerName, random.randint(400, 800))
+    secondEvent(random.randint(400, 800))
     # Break 2
     checkLevel()
     canPlayLuckyDice = True
