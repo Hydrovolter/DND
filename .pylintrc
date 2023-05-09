@@ -436,7 +436,8 @@ disable=raw-checker-failed,
         multiple-statements,
         bare-except,
         global-statement,
-        missing-module-docstring
+        missing-module-docstring,
+        unrecognized-option
         
 
 
