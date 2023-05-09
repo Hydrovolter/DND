@@ -132,7 +132,7 @@ def battle_choice():
         print(f"{i+1}. {option}")
     try:
         choice = int(input("Enter your choice (1-3): "))
-    except: 
+    except:
         print("Invalid choice! Please choose again.")
         return battle_choice()
     if choice == 1:
@@ -823,11 +823,11 @@ def firstEvent(player_name, enemy_name, rating, xp_gain):
             time.sleep(1)
             attack3 = enemy_actions.attack(player)
             if attack3 == "defeat":
-                    # print(f"The Fight is Over! {player_name} loses.")
-                    print("Unfortunately, you have been defeated, which concludes your adventure. Thanks for playing!")
-                    time.sleep(3)
-                    exit()
-                    # break
+                # print(f"The Fight is Over! {player_name} loses.")
+                print("Unfortunately, you have been defeated, which concludes your adventure. Thanks for playing!")
+                time.sleep(3)
+                exit()
+                 # break
         elif option == "heal":
             player_actions.heal()
             time.sleep(1)
