@@ -432,6 +432,10 @@ disable=raw-checker-failed,
         invalid-name,
         missing-function-docstring,
         missing-class-docstring,
+        line-too-long,
+        multiple-statements,
+        bare-except,
+        global-statement
         
 
 

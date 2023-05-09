@@ -652,7 +652,7 @@ def playDiceLuck():
                 print("Please enter a valid ability")
     else:
         notZero = True
-        while notZero == True:
+        while notZero is True:
             abilitydeducted = random.choice(abilities)
             if abilitydeducted == "STR":
                 if STR != 0:
@@ -711,7 +711,7 @@ def playDiceLuck():
                 print("Please enter a valid ability")
     else:
         notZero = True
-        while notZero == True:
+        while notZero is True:
             abilitydeducted = random.choice(abilities)
             if abilitydeducted == "STR":
                 if STR != 0:
@@ -760,7 +760,7 @@ def breakOption():
         print("Okay, let's carry on with your adventure!")
         time.sleep(1)
     elif choice == 2:
-        if canPlayLuckyDice == True:
+        if canPlayLuckyDice is True:
             print("Okay, let's try your luck with dice!")
             print("\n\nWelcome to the Lucky Dice Game!\n\nIn this game, there will be 3 rounds to play, with 3 different die (d6, d20 and d100). In each round, you will roll a dice, and if it lands above or on the half of the dices value, +1 will be added to a random ability of yours! However, if the roll is less than half of the dice's value, -1 will be taken from a random ability of yours! High risk, high reward! You have the option to quit now if you would like, but once the game has started, there is no going back!")
             diceLuck()
@@ -791,7 +791,7 @@ def firstEvent(player_name, enemy_name, rating, xp_gain):
     player_actions = ActionPanel(player)
     enemy_actions = ActionPanel(enemy)
     battleLive = True 
-    while battleLive == True:
+    while battleLive is True:
         time.sleep(1)
         option = battle_choice()
         if option == "attack":
