@@ -593,7 +593,7 @@ def playDiceLuck():
                 print("Please enter a valid ability")
     else:
         notZero = True
-        while notZero == True:
+        while notZero is True:
             abilitydeducted = random.choice(abilities)
             if abilitydeducted == "STR":
                 if STR != 0:
