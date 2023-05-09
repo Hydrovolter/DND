@@ -1,5 +1,7 @@
 # - [] item
 
+- [] lint (repeat)
+
 - [x] Character Creation
 - [x] Dice Roll Functions
 - [x] Level/XP System
@@ -9,5 +11,7 @@
 - [x] Break Option
 - [x] Lucky Dice Game (Break Option Subset)
 - [x] Show Stats Function
-- [x] Third Event
+- [] Third Event
+- [x] Add .pylintrc file
+
 
