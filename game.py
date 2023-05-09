@@ -522,7 +522,7 @@ def checkLevel():
 # Display Stats
 
 def displayStats(character_name):
-    global STR, DEX, CON, WIS, INT, CHA, race, Class, xp, lastLevel
+    global STR, DEX, CON, WIS, INT, CHA, race, Class, xp, lastLevel, playerName
     print("\nUpdated Ability Stats:\n")
     print(f"Name: {character_name}")
     print("Strength: " + str(STR))
@@ -739,7 +739,7 @@ def playDiceLuck():
                     notZero = False
             print(f"Unfortunately, you lost. -1 will be deducted from a random ability. The ability chosen is: {abilitydeducted}")
     print("\nThank you for playing the Lucky Dice Game!")
-    displayStats()
+    displayStats(playerName)
     canPlayLuckyDice = False
     return breakOption()
 
