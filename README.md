@@ -155,7 +155,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Hydrovolter - [@yhydrovotler](https://twitter.com/hydrovolter) - Hydrovolter#8432 on Discord
+Hydrovolter - [@hydrovotler](https://twitter.com/hydrovolter) - Hydrovolter#8432 on Discord
 
 Project Link: [https://github.com/Hydrovolter/DND](https://github.com/Hydrovolter/DND)
 
