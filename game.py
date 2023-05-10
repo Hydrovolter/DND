@@ -393,7 +393,7 @@ def createCharacter(character_name):
 
 
     # Race
-    races = ["human", "elf", "dwarf"]
+    races = ["human", "elf", "dwarf", "half-orc", "tiefling", "half-elf", "dragonborn", "gnome", "halfling"] # added from dwarf [3]
     print("\nRaces:\n\nHuman\nElf\nDwarf\n")
     global race
     race = None
@@ -402,8 +402,8 @@ def createCharacter(character_name):
         race = input("Choose a race: ")
         racelowered = race.lower()
         if racelowered in races:
+            race = racelowered
             if racelowered == "human":
-                race = "human"
                 STR += 1
                 DEX += 1
                 CON += 1
@@ -411,13 +411,29 @@ def createCharacter(character_name):
                 INT += 1
                 CHA += 1
             elif racelowered == "elf":
-                race = "elf"
-                DEX += 1
+                DEX += 2
                 WIS += 2
             elif racelowered == "dwarf":
-                race = "dwarf"
                 STR += 1
                 CON += 2
+            elif racelowered == "half-orc": # added from here
+                STR += 2
+                CON += 1
+            elif racelowered == "tiefling":
+                INT += 1
+                CHA += 2
+            elif racelowered == "half-elf":
+                INT += 1
+                CHA += 2
+            elif racelowered == "dragonborn":
+                STR += 2
+                CHA += 1
+            elif racelowered == "gnome":
+                INT += 2
+                DEX += 1
+            elif racelowered == "halfling":
+                DEX += 2
+                CON += 1
             break
         else:
             print("Please enter a valid race")
