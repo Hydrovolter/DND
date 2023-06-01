@@ -1,6 +1,7 @@
-abilities = ["STR", "DEX", "CON", "WIS", "INT", "CHA"]
-# START OF ABILITY SCORE CHOICES
-# 15
+def createCharacter():
+    abilities = ["STR", "DEX", "CON", "WIS", "INT", "CHA"]
+    # START OF ABILITY SCORE CHOICES
+    # 15
     ability15 = None
     while ability15 not in abilities:
         num = 15
