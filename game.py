@@ -10,9 +10,7 @@ print("Made by Hydrovolter#8432\n\n")
 
 # Global Variables
 
-playerNameInput = input("What is your name? ")
-playerName = playerNameInput.strip()
-if playerName == "": playerName = "Player"
+playerName = "Player" # Default
 
 STR = 0
 DEX = 0
@@ -114,18 +112,19 @@ class ActionPanel:
         heal_amount = random.randint(1, 10)
         self.character.hp += heal_amount
         print(f"\n{self.character.name} heals for {heal_amount} hp!")
-# self, name, hp, damage, armor
-# player = Character("Player", 50, 10, 5)
-# enemy = Character("Goblin", 30, 5, 2)
 
-# player_actions = ActionPanel(player)
-# enemy_actions = ActionPanel(enemy)
+    # self, name, hp, damage, armor
+    # player = Character("Player", 50, 10, 5)
+    # enemy = Character("Goblin", 30, 5, 2)
 
-# player_actions.attack(enemy)
-# enemy_actions.defend()
-# player_actions.attack(enemy)
-# enemy_actions.attack(player)
-# player_actions.heal()
+    # player_actions = ActionPanel(player)
+    # enemy_actions = ActionPanel(enemy)
+
+    # player_actions.attack(enemy)
+    # enemy_actions.defend()
+    # player_actions.attack(enemy)
+    # enemy_actions.attack(player)
+    # player_actions.heal()
 
 def battle_choice():
     options = ["Attack", "Defend", "Heal"]
@@ -155,233 +154,28 @@ def createCharacter(character_name):
     # global Class
     # global xp
 
+    # Abilities
     print("\nAbilities:\n\nStrength (STR)\nDexterity (DEX)\nConstitution (CON)\nWisdom (WIS)\nIntelligence (INT)\nCharisma (CHA)\n")
     abilities = ["STR", "DEX", "CON", "WIS", "INT", "CHA"]
-# START OF ABILITY SCORE CHOICES
-# 15
-    ability15 = None
-    while ability15 not in abilities:
-        num = 15
-        ability15 = input("Choose an ability to be score 15 (Use Shorterned Version): ")
-        abilityupped = ability15.upper()
-        if abilityupped in abilities:
-            if abilityupped == "STR":
-                STR = num
-            elif abilityupped == "DEX":
-                DEX = num
-            elif abilityupped == "CON":
-                CON = num
-            elif abilityupped == "WIS":
-                WIS = num
-            elif abilityupped == "INT":
-                INT = num
-            elif abilityupped == "CHA":
-                CHA = num
-            break
-        else:
-            print("Please enter a valid ability")
-# 14
-    ability14 = None # CHANGE THIS
-    while ability14 not in abilities: # CHANGE THIS
-        num = 14 # CHANGE THIS
-        ability14 = input("Choose an ability to be score 14 (Use Shorterned Version): ") # CHANGE THIS
-        abilityupped = ability14.upper() # CHANGE THIS
-        if abilityupped in abilities:
-            if abilityupped == "STR":
-                if STR == 0:
-                    STR = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "DEX":
-                if DEX == 0:
-                    DEX = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "CON":
-                if CON == 0:
-                    CON = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "WIS":
-                if WIS == 0:
-                    WIS = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "INT":
-                if INT == 0:
-                    INT = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "CHA":
-                if CHA == 0:
-                    CHA = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            # break
-        else:
-            print("Please enter a valid ability")
-# 13
-    ability13 = None # CHANGE THIS
-    while ability13 not in abilities: # CHANGE THIS
-        num = 13 # CHANGE THIS
-        ability13 = input("Choose an ability to be score 13 (Use Shorterned Version): ") # CHANGE THIS
-        abilityupped = ability13.upper() # CHANGE THIS
-        if abilityupped in abilities:
-            if abilityupped == "STR":
-                if STR == 0:
-                    STR = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "DEX":
-                if DEX == 0:
-                    DEX = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "CON":
-                if CON == 0:
-                    CON = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "WIS":
-                if WIS == 0:
-                    WIS = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "INT":
-                if INT == 0:
-                    INT = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "CHA":
-                if CHA == 0:
-                    CHA = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            # break
-        else:
-            print("Please enter a valid ability")
-# 12
-    ability12 = None # CHANGE THIS
-    while ability12 not in abilities: # CHANGE THIS
-        num = 12 # CHANGE THIS
-        ability12 = input("Choose an ability to be score 12 (Use Shorterned Version): ") # CHANGE THIS
-        abilityupped = ability12.upper() # CHANGE THIS
-        if abilityupped in abilities:
-            if abilityupped == "STR":
-                if STR == 0:
-                    STR = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "DEX":
-                if DEX == 0:
-                    DEX = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "CON":
-                if CON == 0:
-                    CON = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "WIS":
-                if WIS == 0:
-                    WIS = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "INT":
-                if INT == 0:
-                    INT = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "CHA":
-                if CHA == 0:
-                    CHA = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
+    scores = [15, 14, 13, 12, 10, 8]
 
-            # break
-        else:
-            print("Please enter a valid ability")
-# 10
-    ability10 = None # CHANGE THIS
-    while ability10 not in abilities: # CHANGE THIS
-        num = 10 # CHANGE THIS
-        ability10 = input("Choose an ability to be score 10 (Use Shorterned Version): ") # CHANGE THIS
-        abilityupped = ability10.upper() # CHANGE THIS
-        if abilityupped in abilities:
-            if abilityupped == "STR":
-                if STR == 0:
-                    STR = num
+    for _, score in enumerate(scores):
+        ability = None
+        while ability not in abilities:
+            num = score
+            ability = input(f"Choose an ability to be score {num} (Use shortened version): ")
+            ability = ability.upper()
+
+            if ability in abilities:
+                if globals()[ability] == 0:
+                    globals()[ability] = num
                     break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "DEX":
-                if DEX == 0:
-                    DEX = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "CON":
-                if CON == 0:
-                    CON = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "WIS":
-                if WIS == 0:
-                    WIS = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "INT":
-                if INT == 0:
-                    INT = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "CHA":
-                if CHA == 0:
-                    CHA = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            # break
-        else:
-            print("Please enter a valid ability")
-# 8
-    ability8 = None # CHANGE THIS
-    while ability8 not in abilities: # CHANGE THIS
-        num = 8 # CHANGE THIS
-        ability8 = input("Choose an ability to be score 8 (Use Shorterned Version): ") # CHANGE THIS
-        abilityupped = ability8.upper() # CHANGE THIS
-        if abilityupped in abilities:
-            if abilityupped == "STR":
-                if STR == 0:
-                    STR = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "DEX":
-                if DEX == 0:
-                    DEX = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "CON":
-                if CON == 0:
-                    CON = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "WIS":
-                if WIS == 0:
-                    WIS = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "INT":
-                if INT == 0:
-                    INT = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            elif abilityupped == "CHA":
-                if CHA == 0:
-                    CHA = num
-                    break
-                else: print("You cannot choose an ability you have already chosen!")
-            # break
-        else:
-            print("Please enter a valid ability")
-# END OF ABILITY SCORE CHOICES
+                else:
+                    print("You cannot choose an ability you have already chosen!")
+                    ability = None
+            else:
+                print("Please enter a valid ability")
+
     print("\nAbility Stats:\n")
     print(f"Name: {character_name}")
     print("Strength: " + str(STR))
@@ -502,21 +296,42 @@ def createSetting():
 # Check Level
 
 def checkLevel():
-    global STR, DEX, INT, lastLevel
+    global STR, DEX, INT, CON, lastLevel
 
     # lastLevel = get_level(xp)
     if get_level(xp) > lastLevel:
         print(f"Congratulations! You levelled up! Your current level is: {str(get_level(xp))}")
-        print("Levelling up grants you benefits depending on your class!")
+        print("Levelling up grants you benefits depending on your class! You have a 1/2 chance of gaining +1 CON or +1 STR, INT, or DEX.")
         if Class == "fighter":
-            print("As you are in the fighter class, you gain +1 STR")
-            STR += 1
+            randomint = random.randint(1,2) # 1 = STR, 2 = CON
+            ablAddName = ""
+            if randomint == 1:
+                STR += 1
+                ablAddName = "STR"
+            else:
+                CON += 1
+                ablAddName = "CON"
+            print(f"As you are in the fighter class, you gain +1 {ablAddName}")
         elif Class == "wizard":
-            print("As you are in the wizard class, you gain +1 INT")
-            INT += 1
+            randomint = random.randint(1,2) # 1 = INT, 2 = CON
+            ablAddName = ""
+            if randomint == 1:
+                INT += 1
+                ablAddName = "INT"
+            else:
+                CON += 1
+                ablAddName = "CON"
+            print(f"As you are in the wizard class, you gain +1 {ablAddName}")
         elif Class == "monk":
-            print("As you are in the monk class, you gain +1 DEX")
-            DEX += 1
+            randomint = random.randint(1,2) # 1 = DEX, 2 = CON
+            ablAddName = ""
+            if randomint == 1:
+                DEX += 1
+                ablAddName = "DEX"
+            else:
+                CON += 1
+                ablAddName = "CON"
+            print(f"As you are in the monk class, you gain +1 {ablAddName}")
         time.sleep(1)
     lastLevel = get_level(xp)
 
@@ -903,7 +718,7 @@ def thirdEvent():
 
 def startGame(player_name):
     global canPlayLuckyDice
-    print(f"\nHello {playerName}, welcome to Hydrovolter's Dungeons and Dragons Python Game! Before we get started, you will need to create your character! Please proceed with the following: (5 Seconds)\n")
+    print(f"\nHello {player_name}, welcome to Hydrovolter's Dungeons and Dragons Python Game! Before we get started, you will need to create your character! Please proceed with the following: (5 Seconds)\n")
     time.sleep(5)
     # Setting + First Event
     createCharacter(player_name)
@@ -930,7 +745,11 @@ def debug():
 
 # Start Game
 
-startGame(playerName)
+if __name__ == "__main__":
+    playerNameInput = input("What is your name? ")
+    playerName = playerNameInput.strip()
+    if playerName == "": playerName = "Player"
+    startGame(playerName)
 
 
 # debug()
