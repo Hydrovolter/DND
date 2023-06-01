@@ -166,8 +166,6 @@ Project Link: [https://github.com/Hydrovolter/DND](https://github.com/Hydrovolte
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
-
 * [MIT License](https://opensource.org/license/mit/)
 * [Img Shields](https://shields.io/)
 * [React Icons](https://react-icons.github.io/react-icons/search/)
