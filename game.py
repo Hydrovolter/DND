@@ -766,6 +766,4 @@ if __name__ == "__main__":
     playerName = playerNameInput.strip()
     if playerName == "": playerName = "Player"
     startGame(playerName)
-
-
-# debug()
+    # debug()
