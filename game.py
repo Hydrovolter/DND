@@ -29,7 +29,8 @@ lastLevel = 0
 # print("Player is now level", get_level(xp)) # Output: Player is now level 3
 
 canPlayLuckyDice = True
-
+setting = None
+patron = ""
 
 
 # Dice Rolls
@@ -294,18 +295,24 @@ def createCharacter(character_name):
 # Create Setting
 
 def createSetting():
+    global setting
     settingRoll = d4()
+    setting = settingRoll
     print("\nRolling the D4 dice to choose the setting for this adventure...")
     time.sleep(3)
     print(f"You rolled a... {str(settingRoll)}!\n")
     time.sleep(1)
     if settingRoll == 1:
+        # Stormy night in a lonely pub with drunk people
         print("As the storm raged on outside, thunderous crashes reverberated through the night sky, accompanied by a downpour of rain that seemed never-ending. The darkness outside was only interrupted by occasional flashes of lightning, illuminating the small village and the lonely pub that sat at its center. Despite the chaos of the storm, the warm and inviting light of the pub shone brightly, beckoning those seeking refuge from the elements. Inside, the atmosphere was lively and energetic, with a group of tipsy patrons cheering and laughing, oblivious to the tempest outside. Amidst the sounds of glasses clinking and raucous chatter, the booming sound of the thunder was like a wild drumbeat, adding to the cacophony of the night.")
     elif settingRoll == 2:
+        # Countryside cozy house
         print("As the sun slowly sets outside, casting a warm, golden glow across the sky, the cosy house seems to come alive with a sense of comfort and tranquility. Inside, the soft glow of lamps and flickering candles fills the rooms with a warm, inviting ambiance.\nThe crackling of logs in the fireplace, coupled with the subtle aroma of woodsmoke, adds to the cozy atmosphere. Plush cushions and soft blankets are scattered throughout the living room, inviting you to snuggle up and get comfortable. The walls are adorned with warm, earthy colors and tasteful decor, creating a sense of calm and relaxation.\nAs the evening draws in and the stars twinkle in the sky, the warm embrace of the house seems to wrap around you, inviting you to stay a little longer and soak in the peacefulness of the moment.")
     elif settingRoll == 3:
+        # Swamp/Forest
         print("Nestled deep in the heart of a wet, swampy green forest stands a magnificent tree house, a verdant oasis rising above the damp ground. The forest canopy envelops the tree house in a cloak of green, while vines and leaves drape themselves over the wooden beams, as if nature itself has woven a protective veil around it. The tree house appears to have grown organically out of the tree, with its wooden planks twisting and turning to match the shape of the trunk. A rickety wooden ladder leads up to the small, but cozy interior, where the smell of fresh wood mingles with the earthy scent of the surrounding forest. From the windows, one can catch glimpses of the misty, swampy landscape stretching out as far as the eye can see, while the gentle creaking of the tree house lends a soothing rhythm to the tranquil sounds of the forest.")
     elif settingRoll == 4:
+        # Urban Jungle (City)
         print("Amidst the chaotic buzz of an urban jungle, the skyscraper stands tall and proud, a modern marvel of architectural engineering. Its smooth glass and steel facade reflects the hustle and bustle of the city below, with streams of cars and people flowing like rivers around its base. As one gazes upwards, the tower seems to reach endlessly into the sky, disappearing into the clouds above. From within, the views are breathtaking, as the cityscape spreads out in all directions, a sprawling metropolis of concrete and steel. The constant hum of traffic and the distant sounds of honking horns permeate the air, serving as a constant reminder of the frenetic energy of the city that never sleeps.")
     time.sleep(5)
 
@@ -726,14 +733,131 @@ def secondEvent(xp_gain):
 
 # Third Event TODO
 
-def thirdEvent():
-    pass
+def thirdEvent(patron_name, player_name, enemy_name, rating, xp_gain, patron_rating):
+    options = ["Accept", "Decline"]
+    print("\nWould you like to:")
+    for i, option in enumerate(options):
+        print(f"{i+1}. {option}")
+    try:
+        choice = int(input("Enter your choice (1, or 2): "))
+    except:
+        print("Invalid choice! Please choose again.")
+        return diceLuck()
+    if choice == 1:
+        print(f"\nYou look for the {enemy_name}. Roll 40 or above on the D100 to discover it (Your wisdom score will be added to your final roll). You roll...")
+        roll = d100()
+        finalRoll = roll + WIS
+        time.sleep(1)
+        print(f"A {str(roll)} + {str(WIS)} = {str(finalRoll)}!\n")
+        if finalRoll >= 40: # Fight FLUMPH
+            print(f"\n\nAfter searching, you encounter the {enemy_name} (again). It backs you into a corner (again). There is nowhere to run (again). You must fight the {enemy_name} (agai- okay I'm getting deja-vu). (Challenge Rating: {rating}/8) FIGHT STARTED:")
+            time.sleep(3)
+            player = Character(player_name, CON, STR, 3)
+            enemy = Character(enemy_name, 10, 4, 2)
+
+            player_actions = ActionPanel(player)
+            enemy_actions = ActionPanel(enemy)
+            battleLive = True
+            while battleLive is True:
+                time.sleep(1)
+                option = battle_choice()
+                if option == "attack":
+                    roll1 = d20()
+                    print(f"\nRoll 10 or higher to attack (D20). You rolled a... {roll1}!")
+                    time.sleep(1)
+                    if roll1 >= 10:
+                        attack = player_actions.attack(enemy)
+                        # enemy_actions.defend()
+                        if attack == "defeat":
+                            # print(f"The Fight is Over! {player_name} wins!")
+                            print(f"Congratulations on defeating the {enemy_name}! From this fight, you have gained {str(xp_gain)} XP!")
+                            add_xp(xp, xp_gain)
+                            break
+                    else:
+                        attackmiss = ["You accidentally slipped and fell", "You missed your strike", "Your attack missed", "You tripped over a rock", "You hit your head on a bar", "Your strike just skimmed the enemy but didn't do any damage"]
+                        print(f"{random.choice(attackmiss)}. {enemy_name} takes this opportunity to strike!\n")
+                        time.sleep(1)
+                        attack2 = enemy_actions.attack(player)
+                        if attack2 == "defeat":
+                            # print(f"The Fight is Over! {player_name} loses.")
+                            print("Unfortunately, you have been defeated, which concludes your adventure. Thanks for playing!")
+                            time.sleep(3)
+                            exit()
+                            # break
+
+                elif option == "defend":
+                    player_actions.defend()
+                    time.sleep(1)
+                    attack3 = enemy_actions.attack(player)
+                    if attack3 == "defeat":
+                        # print(f"The Fight is Over! {player_name} loses.")
+                        print("Unfortunately, you have been defeated, which concludes your adventure. Thanks for playing!")
+                        time.sleep(3)
+                        exit()
+                        # break
+                elif option == "heal":
+                    player_actions.heal()
+                    time.sleep(1)
+        else:
+            print(f"You failed to find the {enemy_name}. You return to the {patron_name}")
+    elif choice == 2: # Fight Patron
+        print(f"Due to you declining his offer, a fight breaks out between you and the {patron_name}. (Challenge Rating: {patron_rating}/8) FIGHT STARTED:")
+        time.sleep(3)
+        player = Character(player_name, CON, STR, 3)
+        enemy = Character(enemy_name, 12, 6, 3)
+
+        player_actions = ActionPanel(player)
+        enemy_actions = ActionPanel(enemy)
+        battleLive = True
+        while battleLive is True:
+            time.sleep(1)
+            option = battle_choice()
+            if option == "attack":
+                roll1 = d20()
+                print(f"\nRoll 10 or higher to attack (D20). You rolled a... {roll1}!")
+                time.sleep(1)
+                if roll1 >= 10:
+                    attack = player_actions.attack(enemy)
+                    # enemy_actions.defend()
+                    if attack == "defeat":
+                        # print(f"The Fight is Over! {player_name} wins!")
+                        print(f"Congratulations on defeating the {patron_name}! From this fight, you have gained {str(xp_gain)} XP!")
+                        add_xp(xp, xp_gain)
+                        break
+                else:
+                    attackmiss = ["You accidentally slipped and fell", "You missed your strike", "Your attack missed", "You tripped over a rock", "You hit your head on a bar", "Your strike just skimmed the enemy but didn't do any damage"]
+                    print(f"{random.choice(attackmiss)}. {enemy_name} takes this opportunity to strike!\n")
+                    time.sleep(1)
+                    attack2 = enemy_actions.attack(player)
+                    if attack2 == "defeat":
+                        # print(f"The Fight is Over! {player_name} loses.")
+                        print("Unfortunately, you have been defeated, which concludes your adventure. Thanks for playing!")
+                        time.sleep(3)
+                        exit()
+                        # break
+
+            elif option == "defend":
+                player_actions.defend()
+                time.sleep(1)
+                attack3 = enemy_actions.attack(player)
+                if attack3 == "defeat":
+                    # print(f"The Fight is Over! {player_name} loses.")
+                    print("Unfortunately, you have been defeated, which concludes your adventure. Thanks for playing!")
+                    time.sleep(3)
+                    exit()
+                    # break
+            elif option == "heal":
+                player_actions.heal()
+                time.sleep(1)
+    else:
+        print("Invalid choice! Please choose again.")
+        return thirdEvent(patron, playerName, "Battle FLUMPH", "2", random.randint(400, 800), "3")
 
 
 # Create Start Game Function
 
 def startGame(player_name):
-    global canPlayLuckyDice
+    global canPlayLuckyDice, patron
     print(f"\nHello {player_name}, welcome to Hydrovolter's Dungeons and Dragons Python Game! Before we get started, you will need to create your character! Please proceed with the following: (5 Seconds)\n")
     time.sleep(5)
     # Setting + First Event
@@ -752,7 +876,12 @@ def startGame(player_name):
     canPlayLuckyDice = True
     breakOption()
     # Third Event
-    # thirdEvent()
+    if setting == 1: patron = "Kenku"
+    elif setting == 2: patron = "Goblin"
+    elif setting == 3: patron = "Yuan-ti"
+    elif setting == 4: patron = "Construct"
+    print(f"A {patron} walks up to you and says: '{player_name}, you must defeat the evil FLUUMPH before it is too late. It has recovered its strength and is now more powerful than before.")
+    thirdEvent(patron, playerName, "Battle FLUMPH", "2", random.randint(400, 800), "3")
 
 def debug():
     pass
