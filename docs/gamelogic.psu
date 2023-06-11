@@ -8,7 +8,7 @@ Creates Character:
     Asks for class (updates abilities accordingly)
 
 Creates Setting:
-    4 Descriptions, selected through dice roll
+    4 settings, selected through dice roll (D4)
 
 First Event:
     Fight "FLUMPH" (monster)
@@ -35,5 +35,12 @@ Break
 Check Level
 
 Third Event:
+    Patron interaction
+    Ask to find and fight FLUMPH (Battle Version)
+        If declined, you fight the Patron (who is stronger than the Battle FLUMPH)
+    Else if accepted go find and fight the Battle FLUMPH (D100 roll and if the roll + current wisdom > 40 then find and fight FLUMPH, else fail to find FLUMPH and event 3 is over)
+    Patron name is based on adventure setting (1-4)
 
+Fourth Event:
+    pass
 

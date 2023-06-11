@@ -732,7 +732,7 @@ def secondEvent(xp_gain):
     else:
         print("You don't see the inscription, and just continue walking.")
 
-# Third Event TODO
+# Third Event
 
 def thirdEvent(patron_name, player_name, enemy_name, rating, xp_gain, patron_rating):
     options = ["Accept", "Decline"]
