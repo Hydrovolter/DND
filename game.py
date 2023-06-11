@@ -881,8 +881,9 @@ def startGame(player_name):
     elif setting == 2: patron = "Goblin"
     elif setting == 3: patron = "Yuan-ti"
     elif setting == 4: patron = "Construct"
-    print(f"A {patron} walks up to you and says: '{player_name}, you must defeat the evil FLUUMPH before it is too late. It has recovered its strength and is now more powerful than before.")
+    print(f"A {patron} walks up to you and says: '{player_name}, you must defeat the evil FLUMPH before it is too late. It has recovered its strength and is now more powerful than before.")
     thirdEvent(patron, playerName, "Battle FLUMPH", "2", random.randint(400, 800), "3")
+    breakOption()
 
 def debug():
     pass
