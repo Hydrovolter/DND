@@ -6,32 +6,11 @@
 import random
 import time
 import sys
-import os
-from colorama import Fore # If Colorama module isn't installed/supported, switch colours with terminal ASCII
 
 # Import Functions (Modules)
 
-from funcs.actionpanel import *
-from funcs.dicerolls import *
-from funcs.xpsystem import *
-from funcs.asciiart import *
 
-cls = lambda: os.system('cls' if os.name=='nt' else 'clear')
-
-def opening():
-    cls()
-    print("Made by " + Fore.GREEN + "Hydrovolter" + Fore.BLACK)
-
-    time.sleep(1) # Carriage Return
-    print("\r.", end="")
-    time.sleep(1)
-    print("\r..", end="")
-    time.sleep(1)
-    print("\r...\n\n", end="")
-    time.sleep(1)
-
-    start_ascii()
-    time.sleep(2)
+print("Made by Hydrovolter#8432\n\n")
 
 # Global Variables
 
@@ -58,6 +37,109 @@ setting = None
 patron = ""
 
 
+# Dice Rolls
+
+def d4():
+    return random.randint(1,4)
+def d6():
+    return random.randint(1,6)
+def d8():
+    return random.randint(1,8)
+def d10():
+    return random.randint(1,10)
+def d12():
+    return random.randint(1,12)
+def d20():
+    return random.randint(1,20)
+def d100():
+    return random.randint(1,100)
+
+# XP System
+
+def add_xp(player_xp, xp_to_add):
+    player_xp += xp_to_add
+    return player_xp
+def get_level(player_xp):
+    # DND XP System
+    xp_thresholds = [0, 300, 900, 2700, 6500, 14000, 23000, 34000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 225000, 265000, 305000, 355000]
+    # for i in range(len(xp_thresholds)):
+    #     if player_xp < xp_thresholds[i]:
+    #         return i-1
+    # return 20
+    for i, threshold in enumerate(xp_thresholds):
+        if player_xp < threshold:
+            return i - 1
+    return 20
+
+# Action Panel System
+
+class Character:
+    def __init__(self, name, hp, damage, armor):
+        self.name = name
+        self.hp = hp
+        self.damage = damage
+        self.armor = armor
+class ActionPanel:
+    def __init__(self, character):
+        self.character = character
+
+    def attack(self, target):
+        damage = random.randint(self.character.damage//2, self.character.damage)
+        total_damage = damage - target.armor
+        if total_damage <= 0:
+            print(f"\n{target.name} blocks the attack!")
+        else:
+            target.hp -= total_damage
+            print(f"\n{self.character.name} attacks {target.name} for {total_damage} damage!")
+            if target.hp <= 0:
+                print(f"\n{target.name} has been defeated!")
+                return "defeat"
+
+    def defend(self):
+        if self.character.armor <= 5: self.character.armor += 1
+
+        print(f"\n{self.character.name} prepares to defend!")
+
+    def heal(self):
+        heal_amount = random.randint(1, 10)
+        self.character.hp += heal_amount
+        print(f"\n{self.character.name} heals for {heal_amount} hp!")
+
+    # self, name, hp, damage, armor
+    # player = Character("Player", 50, 10, 5)
+    # enemy = Character("Goblin", 30, 5, 2)
+
+    # player_actions = ActionPanel(player)
+    # enemy_actions = ActionPanel(enemy)
+
+    # player_actions.attack(enemy)
+    # enemy_actions.defend()
+    # player_actions.attack(enemy)
+    # enemy_actions.attack(player)
+    # player_actions.heal()
+
+def battle_choice():
+    options = ["Attack", "Defend", "Heal"]
+    print("\nChoose your battle strategy:")
+    for i, option in enumerate(options):
+        print(f"{i+1}. {option}")
+    try:
+        choice = int(input("Enter your choice (1-3): "))
+    except:
+        print("Invalid choice! Please choose again.")
+        return battle_choice()
+    match choice:
+        case 1:
+            return "attack"
+        case 2:
+            return "defend"
+        case 3:
+            return "heal"
+        case _:
+            print("Invalid choice! Please choose again.")
+            return battle_choice()
+
+
 # Create Character
 
 def createCharacter(character_name):
@@ -67,7 +149,7 @@ def createCharacter(character_name):
     # global xp
 
     # Abilities
-    print(Fore.CYAN + "\nAbilities:\n\n" + Fore.BLUE + "Strength (STR)\nDexterity (DEX)\nConstitution (CON)\nWisdom (WIS)\nIntelligence (INT)\nCharisma (CHA)\n" + Fore.CYAN)
+    print("\nAbilities:\n\nStrength (STR)\nDexterity (DEX)\nConstitution (CON)\nWisdom (WIS)\nIntelligence (INT)\nCharisma (CHA)\n")
     abilities = ["STR", "DEX", "CON", "WIS", "INT", "CHA"]
     scores = [15, 14, 13, 12, 10, 8]
 
@@ -75,7 +157,7 @@ def createCharacter(character_name):
         ability = None
         while ability not in abilities:
             num = score
-            ability = input(Fore.CYAN + f"Choose an ability to be score {num} (Use shortened version): " + Fore.WHITE)
+            ability = input(f"Choose an ability to be score {num} (Use shortened version): ")
             ability = ability.upper()
 
             if ability in abilities:
@@ -83,36 +165,32 @@ def createCharacter(character_name):
                     globals()[ability] = num
                     break
                 else:
-                    print(Fore.RED + "You cannot choose an ability you have already chosen!")
+                    print("You cannot choose an ability you have already chosen!")
                     ability = None
             else:
-                print(Fore.RED + "Please enter a valid ability")
+                print("Please enter a valid ability")
 
-    time.sleep(1)
+    print("\nAbility Stats:\n")
+    print(f"Name: {character_name}")
+    print("Strength: " + str(STR))
+    print("Dexterity: " + str(DEX))
+    print("Constitution: " + str(CON))
+    print("Wisdom: " + str(WIS))
+    print("Intelligence: " + str(INT))
+    print("Charisma: " + str(CHA))
 
-    print(Fore.CYAN + "\nAbility Stats:\n")
-    print(Fore.CYAN + "Name: " + Fore.BLUE + character_name)
-    print(Fore.CYAN + "Strength: " + Fore.BLUE + str(STR))
-    print(Fore.CYAN + "Dexterity: " + Fore.BLUE + str(DEX))
-    print(Fore.CYAN + "Constitution: " + Fore.BLUE + str(CON))
-    print(Fore.CYAN + "Wisdom: " + Fore.BLUE + str(WIS))
-    print(Fore.CYAN + "Intelligence: " + Fore.BLUE + str(INT))
-    print(Fore.CYAN + "Charisma: " + Fore.BLUE + str(CHA))
-
-    time.sleep(3)
 
     # Race
-    races = ["human", "elf", "dwarf", "half-orc", "tiefling", "half-elf", "dragonborn", "gnome", "halfling"] # added from dwarf [3]
-    print(Fore.CYAN + "\nRaces:")
-    racePrint = ""
+    races = ["human", "elf", "dwarf", "half-orc", "tiefling", "half-elf", "dragonborn", "gnome", "halfling"] # added from dwarf [3]  
+    racePrint = "\nRaces:\n"
     for raceName in races:
         racePrint = racePrint + "\n" + raceName.capitalize()
-    print(Fore.BLUE + racePrint + "\n" + Fore.CYAN)
-
+    print(racePrint)
+        
     global race
     race = None
     while race not in races:
-        race = input(Fore.CYAN + "Choose a race: " + Fore.WHITE)
+        race = input("Choose a race: ")
         racelowered = race.lower()
         if racelowered in races:
             race = racelowered
@@ -150,37 +228,33 @@ def createCharacter(character_name):
                     CON += 1
             break
         else:
-            print(Fore.RED + "Please enter a valid race")
+            print("Please enter a valid race")
+        
 
-    time.sleep(1)
-
-    print(Fore.CYAN + "\nUpdated Ability Stats:\n")
-    print(Fore.CYAN + "Name: " + Fore.BLUE + character_name)
-    print(Fore.CYAN + "Strength: " + Fore.BLUE + str(STR))
-    print(Fore.CYAN + "Dexterity: " + Fore.BLUE + str(DEX))
-    print(Fore.CYAN + "Constitution: " + Fore.BLUE + str(CON))
-    print(Fore.CYAN + "Wisdom: " + Fore.BLUE + str(WIS))
-    print(Fore.CYAN + "Intelligence: " + Fore.BLUE + str(INT))
-    print(Fore.CYAN + "Charisma: " + Fore.BLUE + str(CHA))
-    print(Fore.CYAN + "Race: " + Fore.BLUE + race.capitalize())
-
-    time.sleep(3)
+    print("\nUpdated Ability Stats:\n")
+    print(f"Name: {character_name}")
+    print("Strength: " + str(STR))
+    print("Dexterity: " + str(DEX))
+    print("Constitution: " + str(CON))
+    print("Wisdom: " + str(WIS))
+    print("Intelligence: " + str(INT))
+    print("Charisma: " + str(CHA))
+    print(f"Race: {race.capitalize()}")
 
     # Class
     classes = ["fighter", "wizard", "monk"]
-    print(Fore.CYAN + "\nClasses:")
-    classPrint = ""
+    classPrint = "\nClasses:\n"
     for className in classes:
         classPrint = classPrint + "\n" + className.capitalize()
-    print(Fore.BLUE + classPrint + Fore.CYAN)
+    print(classPrint)
     global Class
     Class = None
     while Class not in classes:
-        Class = input(Fore.CYAN + "\nChoose a class: " + Fore.WHITE)
+        Class = input("\nChoose a class: ")
         classlowered = Class.lower()
         if classlowered in classes:
             if classlowered == "fighter":
-                print(Fore.BLUE + "Fighters are profecient with weapons, and are natural leaders, with good constitution. +2 STR, +2 CHA, and +1 CON. However, they aren't the smartest of creatures. -2 INT, -1 WIS")
+                print("Fighters are profecient with weapons, and are natural leaders, with good constitution. +2 STR, +2 CHA, and +1 CON. However, they aren't the smartest of creatures. -2 INT, -1 WIS")
                 Class = "fighter"
                 STR += 2
                 CHA += 2
@@ -188,7 +262,7 @@ def createCharacter(character_name):
                 INT -= 2
                 WIS -= 1
             elif classlowered == "wizard":
-                print(Fore.BLUE + "Wizards are quite smart, being able to memorise and perform a variety of spells. +2 INT, +2 WIS, +1 DEX. However, they aren't natural leaders or have combat prowess. -2 CHA, -1 STR")
+                print("Wizards are quite smart, being able to memorise and perform a variety of spells. +2 INT, +2 WIS, +1 DEX. However, they aren't natural leaders or have combat prowess. -2 CHA, -1 STR")
                 Class = "wizard"
                 INT += 2
                 WIS += 2
@@ -196,7 +270,7 @@ def createCharacter(character_name):
                 CHA -= 2
                 STR -= 1
             elif classlowered == "monk":
-                print(Fore.BLUE + "Monks are agile and fast, specialising in unarmed combat, so their body can naturally take more of a 'punch'. +2 DEX, +2 CON, +1 STR. However, they struggle in social aspects of life. -2 WIS, -1 INT ")
+                print("Monks are agile and fast, specialising in unarmed combat, so their body can naturally take more of a 'punch'. +2 DEX, +2 CON, +1 STR. However, they struggle in social aspects of life. -2 WIS, -1 INT ")
                 Class = "monk"
                 DEX += 2
                 CON += 2
@@ -205,22 +279,18 @@ def createCharacter(character_name):
                 INT -= 1
             break
         else:
-            print(Fore.RED + "Please enter a valid race")
+            print("Please enter a valid race")
 
-    time.sleep(3)
-
-    print(Fore.CYAN + "\nUpdated Ability Stats:\n")
-    print(Fore.CYAN + "Name: " + Fore.BLUE + character_name)
-    print(Fore.CYAN + "Strength: " + Fore.BLUE + str(STR))
-    print(Fore.CYAN + "Dexterity: " + Fore.BLUE + str(DEX))
-    print(Fore.CYAN + "Constitution: " + Fore.BLUE + str(CON))
-    print(Fore.CYAN + "Wisdom: " + Fore.BLUE + str(WIS))
-    print(Fore.CYAN + "Intelligence: " + Fore.BLUE + str(INT))
-    print(Fore.CYAN + "Charisma: " + Fore.BLUE + str(CHA))
-    print(Fore.CYAN + "Race: " + Fore.BLUE + race.capitalize())
-    print(Fore.CYAN + "Class: " + Fore.BLUE + Class.capitalize())
-
-    time.sleep(3)
+    print("\nUpdated Ability Stats:\n")
+    print(f"Name: {character_name}")
+    print("Strength: " + str(STR))
+    print("Dexterity: " + str(DEX))
+    print("Constitution: " + str(CON))
+    print("Wisdom: " + str(WIS))
+    print("Intelligence: " + str(INT))
+    print("Charisma: " + str(CHA))
+    print(f"Race: {race.capitalize()}")
+    print(f"Class: {Class.capitalize()}")
 
 # Create Setting
 
@@ -228,22 +298,22 @@ def createSetting():
     global setting
     settingRoll = d4()
     setting = settingRoll
-    print(Fore.BLUE + "\nRolling the D4 dice to choose the setting for this adventure...")
+    print("\nRolling the D4 dice to choose the setting for this adventure...")
     time.sleep(3)
-    print("You rolled a... " + Fore.WHITE + str(settingRoll) + Fore.BLUE + "!\n")
+    print(f"You rolled a... {str(settingRoll)}!\n")
     time.sleep(1)
     if settingRoll == 1:
         # Stormy night in a lonely pub with drunk people
-        print("In a stormy village, an isolated cozy pub offers refuge from the raging weather, its warmth and cheer a stark contrast to the thunder outside.")
+        print("As the storm raged on outside, thunderous crashes reverberated through the night sky, accompanied by a downpour of rain that seemed never-ending. The darkness outside was only interrupted by occasional flashes of lightning, illuminating the small village and the lonely pub that sat at its center. Despite the chaos of the storm, the warm and inviting light of the pub shone brightly, beckoning those seeking refuge from the elements. Inside, the atmosphere was lively and energetic, with a group of tipsy patrons cheering and laughing, oblivious to the tempest outside. Amidst the sounds of glasses clinking and raucous chatter, the booming sound of the thunder was like a wild drumbeat, adding to the cacophony of the night.")
     elif settingRoll == 2:
         # Countryside cozy house
-        print("As the sun sets, a cozy house glows warmly with soft lights, crackling logs, and comfy furnishings, inviting you to linger and enjoy the peaceful evening.")
+        print("As the sun slowly sets outside, casting a warm, golden glow across the sky, the cosy house seems to come alive with a sense of comfort and tranquility. Inside, the soft glow of lamps and flickering candles fills the rooms with a warm, inviting ambiance.\nThe crackling of logs in the fireplace, coupled with the subtle aroma of woodsmoke, adds to the cozy atmosphere. Plush cushions and soft blankets are scattered throughout the living room, inviting you to snuggle up and get comfortable. The walls are adorned with warm, earthy colors and tasteful decor, creating a sense of calm and relaxation.\nAs the evening draws in and the stars twinkle in the sky, the warm embrace of the house seems to wrap around you, inviting you to stay a little longer and soak in the peacefulness of the moment.")
     elif settingRoll == 3:
         # Swamp/Forest
-        print("In the heart of a lush, swampy forest, a tree house, woven into the trees with vines and leaves, offers a retreat with misty views and the rhythmic creaking of its wooden structure.")
+        print("Nestled deep in the heart of a wet, swampy green forest stands a magnificent tree house, a verdant oasis rising above the damp ground. The forest canopy envelops the tree house in a cloak of green, while vines and leaves drape themselves over the wooden beams, as if nature itself has woven a protective veil around it. The tree house appears to have grown organically out of the tree, with its wooden planks twisting and turning to match the shape of the trunk. A rickety wooden ladder leads up to the small, but cozy interior, where the smell of fresh wood mingles with the earthy scent of the surrounding forest. From the windows, one can catch glimpses of the misty, swampy landscape stretching out as far as the eye can see, while the gentle creaking of the tree house lends a soothing rhythm to the tranquil sounds of the forest.")
     elif settingRoll == 4:
         # Urban Jungle (City)
-        print("In the midst of a city's chaos, a tall skyscraper reflects the urban buzz, providing views of the bustling streets and the constant hum of traffic, embodying the city's relentless energy.")
+        print("Amidst the chaotic buzz of an urban jungle, the skyscraper stands tall and proud, a modern marvel of architectural engineering. Its smooth glass and steel facade reflects the hustle and bustle of the city below, with streams of cars and people flowing like rivers around its base. As one gazes upwards, the tower seems to reach endlessly into the sky, disappearing into the clouds above. From within, the views are breathtaking, as the cityscape spreads out in all directions, a sprawling metropolis of concrete and steel. The constant hum of traffic and the distant sounds of honking horns permeate the air, serving as a constant reminder of the frenetic energy of the city that never sleeps.")
     time.sleep(5)
 
 # Check Level
@@ -253,10 +323,8 @@ def checkLevel():
 
     # lastLevel = get_level(xp)
     if get_level(xp) > lastLevel:
-        print(Fore.GREEN + "Congratulations! " + Fore.BLUE + "You levelled up! Your current level is: " + Fore.WHITE + {str(get_level(xp))})
-        time.sleep(2)
-        print(Fore.BLUE + "Levelling up grants you benefits depending on your class! You have a 1/2 chance of gaining +1 CON or +1 STR, INT, or DEX.")
-        time.sleep(2)
+        print(f"Congratulations! You levelled up! Your current level is: {str(get_level(xp))}")
+        print("Levelling up grants you benefits depending on your class! You have a 1/2 chance of gaining +1 CON or +1 STR, INT, or DEX.")
         if Class == "fighter":
             randomint = random.randint(1,2) # 1 = STR, 2 = CON
             ablAddName = ""
@@ -293,39 +361,39 @@ def checkLevel():
 # Display Stats
 
 def displayStats(character_name):
-    print(Fore.CYAN + "\nUpdated Ability Stats:\n")
-    print(Fore.CYAN + "Name: " + Fore.BLUE + character_name)
-    print(Fore.CYAN + "Strength: " + Fore.BLUE + str(STR))
-    print(Fore.CYAN + "Dexterity: " + Fore.BLUE + str(DEX))
-    print(Fore.CYAN + "Constitution: " + Fore.BLUE + str(CON))
-    print(Fore.CYAN + "Wisdom: " + Fore.BLUE + str(WIS))
-    print(Fore.CYAN + "Intelligence: " + Fore.BLUE + str(INT))
-    print(Fore.CYAN + "Charisma: " + Fore.BLUE + str(CHA))
-    print(Fore.CYAN + "Race: " + Fore.BLUE + race.capitalize())
-    print(Fore.CYAN + "Class: " + Fore.BLUE + Class.capitalize())
+    print("\nUpdated Ability Stats:\n")
+    print(f"Name: {character_name}")
+    print("Strength: " + str(STR))
+    print("Dexterity: " + str(DEX))
+    print("Constitution: " + str(CON))
+    print("Wisdom: " + str(WIS))
+    print("Intelligence: " + str(INT))
+    print("Charisma: " + str(CHA))
+    print(f"Race: {race.capitalize()}")
+    print(f"Class: {Class.capitalize()}")
 
 # Dice Luck Game
 
 def diceLuck():
     options = ["Play the Lucky Dice game", "Exit the Lucky Dice Game"]
-    print(Fore.BLUE + "\nWould you like to:")
+    print("\nWould you like to:")
     for i, option in enumerate(options):
-        print(Fore.CYAN + f"{i+1}. " + Fore.BLUE + f"{option}")
+        print(f"{i+1}. {option}")
     try:
-        choice = int(input(Fore.CYAN + "Enter your choice (1, or 2): " + Fore.WHITE))
+        choice = int(input("Enter your choice (1, or 2): "))
     except:
-        print(Fore.RED + "Invalid choice! Please choose again.")
+        print("Invalid choice! Please choose again.")
         return diceLuck()
     if choice == 1:
-        print(Fore.GREEN + "Okay, let's play!")
-        time.sleep(2)
+        print("Okay, let's play!")
+        time.sleep(1)
         playDiceLuck()
 
     elif choice == 2:
-        print(Fore.BLUE + "Okay, returning to break menu!")
+        print("Okay, returning to break menu!")
         breakOption()
     else:
-        print(Fore.RED + "Invalid choice! Please choose again.")
+        print("Invalid choice! Please choose again.")
         return diceLuck()
 
 def playDiceLuck():
@@ -335,78 +403,74 @@ def playDiceLuck():
     # Round 1
 
     r1 = d6()
-    print(Fore.BLUE + "Round 1: You roll a...")
-    time.sleep(3)
-    print(Fore.WHITE + f"{str(r1)}!")
+    print("Round 1: You roll a...")
     time.sleep(1)
+    print(f"{str(r1)}!")
     if r1 >= 3:
-        print(Fore.GREEN + "Congratulations! You won!")
+        print("Congratulations! You won!")
 
         ability = None
         while ability not in abilities:
-            ability = input(Fore.CYAN + "Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
+            ability = input("Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
             abilityupped = ability.upper()
             if abilityupped in abilities:
-                match abilityupped:
-                    case "STR":
-                        STR += 1
-                    case "DEX":
-                        DEX += 1
-                    case "CON":
-                        CON += 1
-                    case "WIS":
-                        WIS += 1
-                    case "INT":
-                        INT += 1
-                    case "CHA":
-                        CHA += 1
+                if abilityupped == "STR":
+                    STR += 1
+                elif abilityupped == "DEX":
+                    DEX += 1
+                elif abilityupped == "CON":
+                    CON += 1
+                elif abilityupped == "WIS":
+                    WIS += 1
+                elif abilityupped == "INT":
+                    INT += 1
+                elif abilityupped == "CHA":
+                    CHA += 1
                 break
             else:
-                print(Fore.RED + "Please enter a valid ability")
+                print("Please enter a valid ability")
     else:
         notZero = True
         while notZero is True:
             abilitydeducted = random.choice(abilities)
-            match abilitydeducted:
-                case "STR":
-                    if STR != 0:
-                        STR -= 1
-                        notZero = False
-                case "DEX":
-                    if DEX != 0:
-                        DEX -= 1
-                        notZero = False
-                case "CON":
-                    if CON != 0:
-                        CON -= 1
-                        notZero = False
-                case "WIS":
-                    if WIS != 0:
-                        WIS -= 1
-                        notZero = False
-                case "INT":
-                    if INT != 0:
-                        INT -= 1
-                        notZero = False
-                case "CHA":
-                    if CHA != 0:
-                        CHA -= 1
-                        notZero = False
-            print(Fore.BLUE + "Unfortunately, you lost. -1 will be deducted from a random ability. The ability chosen is: " + Fore.WHITE + abilitydeducted)
+            if abilitydeducted == "STR":
+                if STR != 0:
+                    STR -= 1
+                    notZero = False
+            elif abilitydeducted == "DEX":
+                if DEX != 0:
+                    DEX -= 1
+                    notZero = False
+            elif abilitydeducted == "CON":
+                if CON != 0:
+                    CON -= 1
+                    notZero = False
+            elif abilitydeducted == "WIS":
+                if WIS != 0:
+                    WIS -= 1
+                    notZero = False
+            elif abilitydeducted == "INT":
+                if INT != 0:
+                    INT -= 1
+                    notZero = False
+            elif abilitydeducted == "CHA":
+                if CHA != 0:
+                    CHA -= 1
+                    notZero = False
+            print(f"Unfortunately, you lost. -1 will be deducted from a random ability. The ability chosen is: {abilitydeducted}")
 
         # Round 2
-    time.sleep(3)
+
     r2 = d20()
-    print(Fore.BLUE + "Round 2: You roll a...")
-    time.sleep(3)
-    print(Fore.WHITE + f"{str(r2)}!")
+    print("Round 2: You roll a...")
     time.sleep(1)
+    print(f"{str(r2)}!")
     if r2 >= 10:
-        print(Fore.GREEN + "Congratulations! You won!")
+        print("Congratulations! You won!")
 
         ability = None
         while ability not in abilities:
-            ability = input(Fore.CYAN + "Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
+            ability = input("Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
             abilityupped = ability.upper()
             if abilityupped in abilities:
                 if abilityupped == "STR":
@@ -423,7 +487,7 @@ def playDiceLuck():
                     CHA += 1
                 break
             else:
-                print(Fore.RED + "Please enter a valid ability")
+                print("Please enter a valid ability")
     else:
         notZero = True
         while notZero is True:
@@ -452,21 +516,20 @@ def playDiceLuck():
                 if CHA != 0:
                     CHA -= 1
                     notZero = False
-            print(Fore.BLUE + "Unfortunately, you lost. -1 will be deducted from a random ability. The ability chosen is: " + Fore.WHITE + abilitydeducted)
+            print(f"Unfortunately, you lost. -1 will be deducted from a random ability. The ability chosen is: {abilitydeducted}")
 
     # Round 3
-    time.sleep(3)
+
     r3 = d100()
-    print(Fore.BLUE + "Round 3 (Final Round): You roll a...")
-    time.sleep(3)
-    print(Fore.WHITE + f"{str(r3)}!")
+    print("Round 3 (Final Round): You roll a...")
     time.sleep(1)
+    print(f"{str(r3)}!")
     if r3 >= 50:
-        print(Fore.GREEN + "Congratulations! You won!")
+        print("Congratulations! You won!")
 
         ability = None
         while ability not in abilities:
-            ability = input(Fore.CYAN + "Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
+            ability = input("Please pick an ability to add +1 to! (STR, DEX, CON, WIS, INT, CHA): ")
             abilityupped = ability.upper()
             if abilityupped in abilities:
                 if abilityupped == "STR":
@@ -483,7 +546,7 @@ def playDiceLuck():
                     CHA += 1
                 break
             else:
-                print(Fore.RED + "Please enter a valid ability")
+                print("Please enter a valid ability")
     else:
         notZero = True
         while notZero is True:
@@ -512,10 +575,8 @@ def playDiceLuck():
                 if CHA != 0:
                     CHA -= 1
                     notZero = False
-            print(Fore.BLUE + "Unfortunately, you lost. -1 will be deducted from a random ability. The ability chosen is: " + Fore.WHITE + abilitydeducted)
-    time.sleep(3)
-    print(Fore.GREEN + "\nThank you for playing the Lucky Dice Game!")
-    time.sleep(2)
+            print(f"Unfortunately, you lost. -1 will be deducted from a random ability. The ability chosen is: {abilitydeducted}")
+    print("\nThank you for playing the Lucky Dice Game!")
     displayStats(playerName)
     canPlayLuckyDice = False
     return breakOption()
@@ -523,51 +584,36 @@ def playDiceLuck():
 # Break Option Event
 
 def breakOption():
-    options = ["Continue with your adventure", "Try your dice luck", "Show Stats", "Clear Screen (CLS)", "End Game"]
-    print(Fore.BLUE + "\nBreak! Would you like to:")
+    options = ["Continue with your adventure", "Try your dice luck", "Show Stats", "End Game"]
+    print("\nBreak! Would you like to:")
     for i, option in enumerate(options):
-        print(Fore.CYAN + f"{i+1}. " + Fore.WHITE + f"{option}")
+        print(f"{i+1}. {option}")
     try:
-        choice = int(input(Fore.CYAN + "Enter your choice (1-5): " + Fore.WHITE))
+        choice = int(input("Enter your choice (1-4): "))
     except:
-        print(Fore.RED + "Invalid choice! Please choose again.")
+        print("Invalid choice! Please choose again.")
         return breakOption()
     if choice == 1:
-        print(Fore.GREEN + "Okay, let's carry on with your adventure!")
+        print("Okay, let's carry on with your adventure!")
         time.sleep(1)
     elif choice == 2:
         if canPlayLuckyDice is True:
-            print(Fore.GREEN + "Okay, let's try your luck with dice!")
-            time.sleep(1)
-            print(Fore.BLUE + "\n\nWelcome to the Lucky Dice Game!\n\n")
-            time.sleep(1)
-            print(Fore.BLUE + "In this game, there will be 3 rounds to play, with 3 different die (d6, d20 and d100).")
-            time.sleep(1)
-            print(Fore.BLUE + "In each round, you will roll a dice, and if it lands above or on the half of the dices value, +1 will be added to a random ability of yours!")
-            time.sleep(1.75)
-            print(Fore.BLUE + "However, if the roll is less than half of the dice's value, -1 will be taken from a random ability of yours! High risk, high reward!")
-            time.sleep(1.75)
-            print(Fore.BLUE + "You have the option to quit now if you would like, but once the game has started, there is no going back!")
-            time.sleep(1.5)
+            print("Okay, let's try your luck with dice!")
+            print("\n\nWelcome to the Lucky Dice Game!\n\nIn this game, there will be 3 rounds to play, with 3 different die (d6, d20 and d100). In each round, you will roll a dice, and if it lands above or on the half of the dices value, +1 will be added to a random ability of yours! However, if the roll is less than half of the dice's value, -1 will be taken from a random ability of yours! High risk, high reward! You have the option to quit now if you would like, but once the game has started, there is no going back!")
             diceLuck()
         else:
-            print(Fore.RED + "Sorry, you cannot play Lucky Dice again this break, try again next break!")
+            print("Sorry, you cannot play Lucky Dice again this break, try again next break!")
             return breakOption()
     elif choice == 3:
         displayStats(playerName)
         time.sleep(3)
         return breakOption()
     elif choice == 4:
-        print(Fore.RED + "Clearing Screen for more space (CLS)... (3 seconds)")
-        time.sleep(3)
-        cls()
-        return breakOption()
-    elif choice == 5:
-        print(Fore.RED + "Alright, then this concludes your adventure! Thank you for playing " + Fore.GREEN + "Hydrovolter's" + Fore.RED + " Dungeons and Dragons Game! ")
+        print("Alright, then this concludes your adventure! Thank you for playing Hydrovolter's Dungeons and Dragons Game! ")
         time.sleep(3)
         sys.exit()
     else:
-        print(Fore.RED + "Invalid choice! Please choose again.")
+        print("Invalid choice! Please choose again.")
         return breakOption()
 
 # First Event
@@ -812,28 +858,23 @@ def thirdEvent(patron_name, player_name, enemy_name, rating, xp_gain, patron_rat
 
 def startGame(player_name):
     global canPlayLuckyDice, patron
-    print(Fore.RED + "\nHello " + Fore.BLUE + player_name + Fore.RED + ", welcome to Hydrovolter's Dungeons and Dragons Python Game! Before we get started, you will need to create your character! Please proceed with the following: (5 Seconds)\n")
+    print(f"\nHello {player_name}, welcome to Hydrovolter's Dungeons and Dragons Python Game! Before we get started, you will need to create your character! Please proceed with the following: (5 Seconds)\n")
     time.sleep(5)
-
     # Setting + First Event
     createCharacter(player_name)
     createSetting()
     firstEvent(player_name, "FLUMPH", "1", random.randint(200, 400))
-
     # Break
     checkLevel()
     canPlayLuckyDice = True
     breakOption()
-
     # Second Event
-    print(Fore.BLUE + "\n\nAfter fighting an intense battle, you find a post and lie against it.")
+    print("\n\nAfter fighting an intense battle, you find a post and lie against it.")
     secondEvent(random.randint(400, 800))
-
     # Break 2
     checkLevel()
     canPlayLuckyDice = True
     breakOption()
-
     # Third Event
     if setting == 1: patron = "Kenku"
     elif setting == 2: patron = "Goblin"
@@ -841,27 +882,18 @@ def startGame(player_name):
     elif setting == 4: patron = "Construct"
     print(f"A {patron} walks up to you and says: '{player_name}, you must defeat the evil FLUMPH before it is too late. It has recovered its strength and is now more powerful than before.")
     thirdEvent(patron, playerName, "Battle FLUMPH", "2", random.randint(400, 800), "3")
-
-    # Break 3
-    checkLevel()
-    canPlayLuckyDice = True
     breakOption()
 
-
 def debug():
-    firstEvent("debug", "FLUMPH", "1", random.randint(200, 400))
+    pass
 
 
 
 # Start Game
 
 if __name__ == "__main__":
-    opening()
-
-    playerNameInput = input(Fore.BLUE + "What is your name? " + Fore.WHITE)
+    playerNameInput = input("What is your name? ")
     playerName = playerNameInput.strip()
     if playerName == "": playerName = "Player"
-
     startGame(playerName)
-
-    #debug() # Debug Purposes (DEV Env)
+    # debug()
